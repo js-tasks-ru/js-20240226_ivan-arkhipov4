@@ -5,5 +5,9 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-
+  let unsortedArray = arr;
+  if (param == 'desc') {
+    return unsortedArray.sort((a, b) => b.localeCompare(a, undefined, {caseFirst: 'upper'}));
+  }
+  return unsortedArray.flat().sort((a, b) => a.localeCompare(b, undefined, {caseFirst: 'upper'}));
 }
