@@ -5,11 +5,7 @@
  * @returns {string[]}
  */
 export function sortStrings(arr, param = 'asc') {
-  if (param && !['desc', 'asc'].includes(param)) {
-    throw new Error('неверный параметр сортировки');
-  }
-
-  let unsortedArray = arr.flat();
+  const unsortedArray = [...arr];
   if (param == 'desc') {
     return unsortedArray.sort((a, b) => b.localeCompare(a, ['ru', 'en'], {caseFirst: 'upper'}));
   }
