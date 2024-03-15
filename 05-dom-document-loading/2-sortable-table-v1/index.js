@@ -25,7 +25,7 @@ export default class SortableTable {
     this.data.sort(
       (a, b) => {
         const key = sortFunc(a[field], b[field]);
-        return orderValue === 'asc' ? key : -key;  
+        return orderValue === 'asc' ? key : key * -1;  
       }
     );
     return;  
