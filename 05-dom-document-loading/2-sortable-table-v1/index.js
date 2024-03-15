@@ -37,7 +37,7 @@ export default class SortableTable {
     }
     if (sortType === 'string') {
       return (a, b) => a.localeCompare(
-        b, undefined, { numeric: true, caseFirst: 'upper' }
+        b, undefined, { numeric: true }
       );
     }
   }
@@ -49,7 +49,7 @@ export default class SortableTable {
   updateHeader(columnId, order) {
     this.markerElement.remove();
     const columnElement = this.subElements.header.querySelector(`[data-id=${columnId}]`);
-    columnElement.append(this.createSortMarkerTemplate());
+    columnElement.append(this.markerElement);
     columnElement.dataset.order = order;
   }
 
