@@ -37,7 +37,7 @@ export default class SortableTable {
     }
     if (sortType === 'string') {
       return (a, b) => a.localeCompare(
-        b, undefined, { numeric: true }
+        b, ['en', 'ru'], { numeric: true }
       );
     }
   }
