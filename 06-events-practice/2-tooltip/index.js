@@ -61,9 +61,13 @@ class Tooltip {
     this.element.remove();
   }
 
-  destroy() {
-    this.remove();
+  destroyEventListeners() {
     document.removeEventListener('pointerover', (e) => this.onDocumentPointerOver(e));
+  }
+  
+  destroy() {
+    this.destroyEventListeners();
+    this.remove();
   }
 }
 
