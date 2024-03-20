@@ -9,8 +9,36 @@ class Tooltip {
 
     this.element = this.createElement(this.createTemplate());
   }
+  
+  onDocumentPointerOver = (e) => {
+    const target = e.target.closest('[data-tooltip]');
 
-  render(text) {
+    if (target) {      
+      this.render(target.dataset.tooltip);     
+      
+      target.addEventListener(
+        'pointermove', this.onDocumentPointerMove
+      );
+      
+      target.addEventListener(
+        'pointerout',
+        this.onDocumentPointerOut,
+        { once: true }
+      );
+    }
+  }
+
+  onDocumentPointerMove = (e) => {
+    this.element.style.left = e.pageX + 5 + 'px';
+    this.element.style.top = e.pageY + 5 + 'px';
+  }
+
+  onDocumentPointerOut = (e) => {
+    e.target.removeEventListener('pointermove', this.onDocumentPointerMove);
+    this.remove();
+  }
+
+  render(text = '') {
     document.body.append(this.element);
     this.element.textContent = text;
   }
@@ -26,43 +54,15 @@ class Tooltip {
   }
 
   initialize () {
-    document.addEventListener('pointerover', (e) => this.onDocumentPointerOver(e));
+    document.addEventListener('pointerover', this.onDocumentPointerOver);
   }
   
-  onDocumentPointerOver(e) {
-    const target = e.target.closest('[data-tooltip]');
-
-    if (target) {      
-      this.render(target.dataset.tooltip);     
-      
-      target.addEventListener(
-        'pointermove', (e) => this.onDocumentPointerMove(e)
-      );
-      
-      target.addEventListener(
-        'pointerout',
-        (e) => this.onDocumentPointerOut(e),
-        { once: true }
-      );
-    }
-  }
-
-  onDocumentPointerMove(e) {
-    this.element.style.left = e.pageX + 'px';
-    this.element.style.top = e.pageY + 'px';
-  }
-
-  onDocumentPointerOut(e) {
-    e.target.removeEventListener('pointermove', (e) => this.onTargetPointerMove(e));
-    this.remove();
-  }
-
   remove() {
     this.element.remove();
   }
 
   destroyEventListeners() {
-    document.removeEventListener('pointerover', (e) => this.onDocumentPointerOver(e));
+    document.removeEventListener('pointerover', this.onDocumentPointerOver);
   }
   
   destroy() {
