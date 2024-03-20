@@ -15,29 +15,29 @@ export default class SortableTableV2 extends SortableTableV1 {
 
     this.sort(this.defaultSortField, this.defaultSortOrder);
   }
-
-  createEvenListeners() {
-    this.subElements.header.addEventListener(
-      'pointerdown', (e) => this.onHeaderPointerDown(e)
-    );
-  }
-
-  onHeaderPointerDown(e) {
+  
+  onHeaderPointerDown = (e) => {
     const columnElement = e.target.closest('[data-sortable=true]');
-
+    
     if (!columnElement) {
       return;
     }
-
+    
     const orderValue = columnElement.dataset.order === 'desc' ? 'asc' : 'desc';
     const columnId = columnElement.dataset.id;
-
+    
     this.sort(columnId, orderValue);
   }
-
+  
+  createEvenListeners() {
+    this.subElements.header.addEventListener(
+      'pointerdown', this.onHeaderPointerDown
+    );
+  }
+  
   destroyEventListeners() { 
     this.subElements.header.removeEventListener(
-      'pointerdown', (e) => this.onHeaderPointerDown(e)
+      'pointerdown', this.onHeaderPointerDown
     );
   }
 
