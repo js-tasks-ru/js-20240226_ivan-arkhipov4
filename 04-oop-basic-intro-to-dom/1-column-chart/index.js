@@ -1,4 +1,4 @@
-export default class ColumnChart {
+export default class ColumnChartV1 {
   chartHeight = 50;
   
   constructor({
@@ -13,7 +13,7 @@ export default class ColumnChart {
     this.value = value;
     this.link = link;
     this.formatHeading = formatHeading;
-
+    
     this.element = this.createElement(this.createTemplate());
   }
   
