@@ -16,7 +16,7 @@ export default class SortableTableV2 extends SortableTableV1 {
     this.sort(this.defaultSortField, this.defaultSortOrder);
   }
   
-  onHeaderPointerDown = (e) => {
+  onHeaderPointerDown(e) {
     const columnElement = e.target.closest('[data-sortable=true]');
     
     if (!columnElement) {
@@ -30,6 +30,7 @@ export default class SortableTableV2 extends SortableTableV1 {
   }
   
   createEvenListeners() {
+    this.onHeaderPointerDown = this.onHeaderPointerDown.bind(this);
     this.subElements.header.addEventListener(
       'pointerdown', this.onHeaderPointerDown
     );
